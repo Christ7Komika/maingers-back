@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Operator {
+  id               String           @id @default(uuid())
+  firstname        String
+  lastname         String
+  email            String           @unique
+  operatorSocketId String?          @unique
+  post             String
+  password         String
+  message          InstantMessage[]
+  isAdmin          Boolean          @default(false)
+  updatedAt        DateTime         @updatedAt
+  createdAt        DateTime         @default(now())
+}
+
+model Client {
+  id             String           @id @default(uuid())
+  clientSocketId String?          @unique
+  ip             String?
+  name           String
+  email          String?
+  message        InstantMessage[]
+  updatedAt      DateTime         @updatedAt
+  createdAt      DateTime         @default(now())
+}
+
+model InstantMessage {
+  id           String    @id @default(uuid())
+  client       Client    @relation(fields: [clientId], references: [clientSocketId])
+  operator     Operator? @relation(fields: [operatorId], references: [operatorSocketId])
+  clientId     String
+  operatorId   String?
+  operatorName String?   @default("")
+  message      String
+  isClient     Boolean   @default(true)
+  isChanged    Boolean   @default(false)
+  isNew        Boolean   @default(true)
+  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime  @default(now())
+}
+
+model Career {
+  id                   String   @id @default(uuid())
+  photo                String
+  photoPath            String
+  firstname            String
+  lastname             String
+  email                String
+  phone                String
+  civility             String
+  country              String
+  cv                   String
+  new                  Boolean  @default(true)
+  view                 Boolean  @default(true)
+  cvPath               String
+  motivationLetter     String
+  motivationLetterPath String
+  targetPosition       String
+  contractType         String
+  jobSearch            String
+  updatedAt            DateTime @updatedAt
+  createdAt            DateTime @default(now())
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  file      String?
+  filePath  String?
+  new       Boolean  @default(true)
+  view      Boolean  @default(true)
+  object    String
+  message   String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Estimate {
+  id           String   @id @default(uuid())
+  firstname    String
+  lastname     String
+  society      String
+  codePostal   String
+  email        String
+  phone        String
+  new          Boolean  @default(true)
+  view         Boolean  @default(true)
+  country      String
+  estimateType String
+  file         String
+  filePath     String
+  infos        String
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+}
+
+model Project {
+  id         String   @id @default(uuid())
+  firstname  String
+  lastname   String
+  society    String
+  codePostal String
+  subject    String
+  email      String
+  phone      String
+  new        Boolean  @default(true)
+  view       Boolean  @default(true)
+  func       String
+  country    String
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+}
+
+model NewsLetter {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  new       Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
