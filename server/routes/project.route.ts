@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ProjectController } from "../controllers/ProjectController";
 import { storeValidate } from "../validators/projectValidator";
-import { ProjectValidator } from "../middlewares/ProjectValidatOR";
+import { ProjectValidator } from "../middlewares/ProjectValidator";
 
 const routes = Router();
 

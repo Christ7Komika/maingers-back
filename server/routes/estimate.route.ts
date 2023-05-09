@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { EstimateController } from "../controllers/EstimateController";
 import uploadEstimateFile from "../middlewares/uploadEstimateFile";
-import { EstimateValidator } from "../middlewares/estimateValidatore";
 import { storeValidate } from "../validators/estimateValidator";
+import { EstimateValidator } from "../middlewares/EstimateValidatore";
 
 const routes = Router();
 
