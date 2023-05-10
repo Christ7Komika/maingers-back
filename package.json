@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon ./server/index.ts"
+    "dev": "nodemon ./server/index.ts",
+    "start": " npx prisma migrate dev --name init && nodemon ./server/index.ts"
   },
   "keywords": [],
   "author": "",
