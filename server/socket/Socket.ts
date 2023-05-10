@@ -1,6 +1,5 @@
 import { prisma } from "../database";
 import { Client, IO, Message } from "../types/Socket";
-import { Prisma } from "@prisma/client";
 
 export class Socket {
   static saveMessage(data: Message, socket: IO) {

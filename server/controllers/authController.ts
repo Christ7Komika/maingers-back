@@ -1,7 +1,7 @@
 import { prisma } from "../database";
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 import { Operator } from "@prisma/client";
 import env from "../../env";
 import { token } from "morgan";

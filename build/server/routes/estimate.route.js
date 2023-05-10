@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const EstimateController_1 = require("../controllers/EstimateController");
+const uploadEstimateFile_1 = require("../middlewares/uploadEstimateFile");
+const estimateValidator_1 = require("../validators/estimateValidator");
+const EstimateValidatore_1 = require("../middlewares/EstimateValidatore");
+const routes = (0, express_1.Router)();
+routes.get("/estimate", EstimateController_1.EstimateController.all);
+routes.get("/estimate/:id", EstimateController_1.EstimateController.one);
+routes.get("/estimate/new/number", EstimateController_1.EstimateController.getNews);
+routes.get("/estimate/view/number", EstimateController_1.EstimateController.getViews);
+routes.post("/estimate", uploadEstimateFile_1.default, estimateValidator_1.storeValidate, EstimateValidatore_1.EstimateValidator.store, EstimateController_1.EstimateController.store);
+routes.delete("/estimate/delete/:id", EstimateController_1.EstimateController.destroy);
+exports.default = routes;

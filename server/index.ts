@@ -1,14 +1,12 @@
-import express from "express";
-import cors from "cors";
-import morgan from "morgan";
+import * as express from "express";
+import * as cors from "cors";
+import * as morgan from "morgan";
 import routes from "./routes/routes";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import env from "../env";
 import { Socket } from "./socket/Socket";
 import { Client, Message } from "./types/Socket";
-import passport from "passport";
-import session from "express-session";
 
 const app = express();
 const server = createServer(app);
@@ -20,22 +18,6 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.use("/file", express.static("./server/upload"));
-
-app.use(
-  session({
-    secret: env.session,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true,
-      maxAge: 60 * 60 * 1000,
-    },
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-require("./middlewares/passport");
 
 // Socket
 const io = new Server(server, {

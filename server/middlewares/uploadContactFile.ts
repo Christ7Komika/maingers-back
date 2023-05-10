@@ -1,7 +1,7 @@
-import multer, { diskStorage } from "multer";
+import * as multer from "multer";
 import { Request } from "express";
 
-const storageEngine = diskStorage({
+const storageEngine = multer.diskStorage({
   destination: "./server/upload/contact/",
   filename: (
     req: Request,

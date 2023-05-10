@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const InstantMessageController_1 = require("../controllers/InstantMessageController");
+const routes = (0, express_1.Router)();
+routes.get("/message/news/:id", InstantMessageController_1.InstantMessageController.getNews);
+routes.put("/message/news/:id", InstantMessageController_1.InstantMessageController.updateNews);
+routes.post("/message", InstantMessageController_1.InstantMessageController.one);
+routes.delete("/message/delete/:id", InstantMessageController_1.InstantMessageController.destroy);
+exports.default = routes;

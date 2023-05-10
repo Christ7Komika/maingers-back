@@ -1,9 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { prisma } from "../database";
 import { hashSync } from "bcrypt";
 import { ErrorType } from "../types/Error";
-import passport from "passport";
-import { Operator } from "@prisma/client";
 
 export class OperatorController {
   static async all(_: Request, res: Response) {
@@ -73,21 +71,6 @@ export class OperatorController {
       });
     }
   }
-
-  static async login(req: Request, res: Response, next: NextFunction) {
-    passport.authenticate("local", (err: any, operator: Operator) => {
-      if (err) return res.status(400).json({ message: "Request failed" });
-      if (!operator) res.status(400).json({ message: "Identifiant invalide" });
-      if (operator) {
-        req.logIn(operator, (err) => {
-          if (err) return res.status(500).json({ error: err });
-        });
-      }
-    })(req, res, next);
-    return res.json(req.user);
-  }
-
-  static async logout(req: Request, res: Response) {}
 
   static async switchRole(req: Request, res: Response) {
     const id = req.params.id as string;

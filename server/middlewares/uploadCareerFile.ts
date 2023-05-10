@@ -1,4 +1,4 @@
-import multer, { diskStorage } from "multer";
+import * as multer from "multer";
 import { Request } from "express";
 
 export interface FileType {
@@ -18,7 +18,7 @@ export interface CareerFiles {
   motivation: [FileType];
 }
 
-const storageEngine = diskStorage({
+const storageEngine = multer.diskStorage({
   destination: "./server/upload/career/",
   filename: (
     req: Request,

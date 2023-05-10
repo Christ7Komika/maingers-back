@@ -2,7 +2,7 @@ import { Result, ValidationError, validationResult } from "express-validator";
 import { Response, Request, NextFunction } from "express";
 import { prisma } from "../database";
 import { compareSync } from "bcrypt";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 import env from "../../env";
 
 export type LoginData = { email: string; password: string };
