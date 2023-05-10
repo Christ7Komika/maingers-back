@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "npm run clean && npx tsc && npm run copy ",
+    "build": "npm run clean && npx tsc && npm run copy && npm run migrate ",
     "clean": "rimraf build/",
     "copy": "copyfiles -u 1 ./server/upload/**/*  build/server",
     "dev": "nodemon ./index.ts",
