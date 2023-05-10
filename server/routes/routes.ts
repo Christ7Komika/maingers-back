@@ -8,6 +8,7 @@ import operator from "./operator.route";
 import project from "./project.route";
 import newsletter from "./newsletter.route";
 import auth from "./auth.route";
+import { Request, Response } from "express";
 
 const routes = Router();
 
@@ -20,5 +21,6 @@ routes.use(operator);
 routes.use(project);
 routes.use(newsletter);
 routes.use(auth);
+routes.get("/", (_: Request, res: Response) => res.send("Hello, world"));
 
 export default routes;
