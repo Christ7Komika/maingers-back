@@ -1,12 +1,12 @@
 import * as express from "express";
 import * as cors from "cors";
 import * as morgan from "morgan";
-import routes from "./routes/routes";
+import routes from "./server/routes/routes";
 import { Server } from "socket.io";
 import { createServer } from "http";
-import env from "../env";
-import { Socket } from "./socket/Socket";
-import { Client, Message } from "./types/Socket";
+import env from "./env";
+import { Socket } from "./server/socket/Socket";
+import { Client, Message } from "./server/types/Socket";
 
 const app = express();
 const server = createServer(app);

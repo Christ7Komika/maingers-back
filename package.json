@@ -7,9 +7,9 @@
     "build": "npm run clean && npx tsc && npm run copy ",
     "clean": "rimraf build/",
     "copy": "copyfiles -u 1 ./server/upload/**/*  build/server",
-    "dev": "nodemon ./server/index.ts",
+    "dev": "nodemon ./index.ts",
     "migrate": " npx prisma migrate dev --name init",
-    "start": "concurrently \"npx tsc --watch\" \"nodemon -q build/server/index.js \""
+    "start": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js \""
   },
   "keywords": [],
   "author": "",
