@@ -11,5 +11,4 @@ routes.delete(
   InstantMessageController.deleteConversation
 );
 routes.delete("/message/delete/user", InstantMessageController.deleteUsers);
-
 export default routes;
