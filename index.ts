@@ -23,7 +23,8 @@ app.use("/file", express.static("./server/upload"));
 const io = new Server(server, {
   cors: {
     // origin: ["http://localhost:5173", "http://localhost:5174"],
-    origin: "*",
+    // origin: "*",
+    origin: "https://maingers-hydraulic.com",
     methods: ["GET", "POST"],
   },
 });

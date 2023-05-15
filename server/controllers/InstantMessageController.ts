@@ -33,8 +33,6 @@ export class InstantMessageController {
       },
     });
 
-    console.log(operatorData);
-
     const client = clientId ? clientData : [];
     const operator = operatorId ? operatorData : [];
 
@@ -56,6 +54,18 @@ export class InstantMessageController {
     );
   }
 
+  static async getAllNews(_: Request, res: Response) {
+    return res.status(200).json(
+      (
+        await prisma.instantMessage.findMany({
+          where: {
+            isNew: true,
+          },
+        })
+      ).length
+    );
+  }
+
   static async updateNews(req: Request, res: Response) {
     await prisma.instantMessage.updateMany({
       where: {
@@ -71,7 +81,106 @@ export class InstantMessageController {
 
     return res.status(200).end();
   }
+  static async deleteUsers(req: Request, res: Response) {
+    const clientId = req.body.clientId;
+    const operatorId = req.body.operatorId;
 
-  static async store() {}
-  static async destroy() {}
+    try {
+      await prisma.instantMessage.deleteMany({
+        where: {
+          clientId: clientId,
+        },
+      });
+
+      await prisma.client.delete({
+        where: {
+          clientSocketId: clientId,
+        },
+      });
+
+      const clientData = await prisma.instantMessage.findMany({
+        where: {
+          clientId: clientId,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+
+      const operatorData = await prisma.instantMessage.findMany({
+        where: {
+          operatorId: operatorId,
+        },
+        select: {
+          id: true,
+          clientId: true,
+          isChanged: true,
+          isClient: true,
+          isNew: true,
+          message: true,
+          updatedAt: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+
+      const client = clientId ? clientData : [];
+      const operator = operatorId ? operatorData : [];
+      return res.status(200).json([...client, ...operator]);
+    } catch (err) {
+      return res.status(500).json({
+        error: err,
+        message: "Erreur rencontrer lors de l'execution de la requete",
+      });
+    }
+  }
+  static async deleteConversation(req: Request, res: Response) {
+    const clientId = req.body.clientId;
+    const operatorId = req.body.operatorId;
+    try {
+      await prisma.instantMessage.deleteMany({
+        where: {
+          clientId: clientId,
+        },
+      });
+      const clientData = await prisma.instantMessage.findMany({
+        where: {
+          clientId: clientId,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+
+      const operatorData = await prisma.instantMessage.findMany({
+        where: {
+          operatorId: operatorId,
+        },
+        select: {
+          id: true,
+          clientId: true,
+          isChanged: true,
+          isClient: true,
+          isNew: true,
+          message: true,
+          updatedAt: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+
+      const client = clientId ? clientData : [];
+      const operator = operatorId ? operatorData : [];
+      return res.status(200).json([...client, ...operator]);
+    } catch (err) {
+      return res.status(500).json({
+        error: err,
+        message: "Erreur rencontrer lors de l'execution de la requete",
+      });
+    }
+  }
 }
