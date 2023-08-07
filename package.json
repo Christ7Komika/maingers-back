@@ -8,7 +8,7 @@
     "clean": "rimraf build/",
     "copy": "copyfiles -u 1 ./server/upload/**/*  build/server",
     "dev": "nodemon ./index.ts",
-    "migrate": " npx prisma migrate dev --name init",
+    "migrate": " npx prisma migrate deploy",
     "start": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js \""
   },
   "keywords": [],
